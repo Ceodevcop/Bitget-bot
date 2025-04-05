@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "public/$1"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@your-mongodb-uri",
+    "BITGET_API_KEY": "@your-bitget-api-key",
+    "BITGET_SECRET": "@your-bitget-secret",
+    "BITGET_PASSPHRASE": "@your-bitget-passphrase"
+  }
