@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitget Grid Bot</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Bitget Grid Trading Bot</h1>
+      <div class="bot-status" id="bot-status">Offline</div>
+    </header>
+
+    <div class="config-panel">
+      <div class="form-group">
+        <label>Symbol:</label>
+        <select id="symbol">
+          <!-- Major Cryptocurrencies -->
+          <option value="BTCUSDT">BTC/USDT</option>
+          <option value="ETHUSDT">ETH/USDT</option>
+          <option value="BNBUSDT">BNB/USDT</option>
+          <option value="SOLUSDT">SOL/USDT</option>
+          <option value="XRPUSDT">XRP/USDT</option>
+          <option value="ADAUSDT">ADA/USDT</option>
+          <option value="DOGEUSDT">DOGE/USDT</option>
+          <option value="DOTUSDT">DOT/USDT</option>
+          <option value="MATICUSDT">MATIC/USDT</option>
+          <option value="LTCUSDT">LTC/USDT</option>
+          
+          <!-- DeFi Tokens -->
+          <option value="AVAXUSDT">AVAX/USDT</option>
+          <option value="LINKUSDT">LINK/USDT</option>
+          <option value="UNIUSDT">UNI/USDT</option>
+          <option value="AAVEUSDT">AAVE/USDT</option>
+          <option value="ATOMUSDT">ATOM/USDT</option>
+          
+          <!-- Layer 2 Solutions -->
+          <option value="ARBUSDT">ARB/USDT</option>
+          <option value="OPUSDT">OP/USDT</option>
+          <option value="IMXUSDT">IMX/USDT</option>
+          
+          <!-- Meme Coins -->
+          <option value="SHIBUSDT">SHIB/USDT</option>
+          <option value="PEPEUSDT">PEPE/USDT</option>
+          
+          <!-- AI & Big Data -->
+          <option value="AGIXUSDT">AGIX/USDT</option>
+          <option value="FETUSDT">FET/USDT</option>
+          <option value="OCEANUSDT">OCEAN/USDT</option>
+          
+          <!-- Gaming -->
+          <option value="SANDUSDT">SAND/USDT</option>
+          <option value="MANAUSDT">MANA/USDT</option>
+          <option value="GALAUSDT">GALA/USDT</option>
+          
+          <!-- Stablecoins -->
+          <option value="USDCUSDT">USDC/USDT</option>
+          <option value="DAIUSDT">DAI/USDT</option>
+          
+          <!-- Privacy Coins -->
+          <option value="XMRUSDT">XMR/USDT</option>
+          <option value="ZECUSDT">ZEC/USDT</option>
+        </select>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Upper Price:</label>
+          <input type="number" id="upper-price" step="0.01" placeholder="Auto-detect">
+        </div>
+        <div class="form-group">
+          <label>Lower Price:</label>
+          <input type="number" id="lower-price" step="0.01" placeholder="Auto-detect">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Grid Levels:</label>
+          <input type="number" id="grid-levels" min="3" max="50" value="10">
+        </div>
+        <div class="form-group">
+          <label>Investment (USDT):</label>
+          <input type="number" id="investment" min="10" value="1000">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Grid Strategy:</label>
+        <select id="strategy">
+          <option value="linear">Linear Grid</option>
+          <option value="fibonacci">Fibonacci Grid</option>
+          <option value="exponential">Exponential Grid</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="control-panel">
+      <button id="start-btn" class="btn primary">Start Bot</button>
+      <button id="stop-btn" class="btn danger" disabled>Stop Bot</button>
+      <button id="auto-config-btn" class="btn secondary">Auto Config</button>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="price-chart"></canvas>
+      <div class="grid-lines" id="grid-lines"></div>
+      <div class="price-display" id="current-price">Current Price: -</div>
+    </div>
+
+    <div class="stats-panel">
+      <div class="stat-card">
+        <div class="stat-label">24h Volume</div>
+        <div class="stat-value" id="24h-volume">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">24h Change</div>
+        <div class="stat-value" id="24h-change">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Grid Profit</div>
+        <div class="stat-value" id="grid-profit">-</div>
+      </div>
+    </div>
+
+    <div class="trade-history">
+      <h3>Trade History <span class="badge" id="trade-count">0</span></h3>
+      <div class="table-container">
+        <table id="trade-log">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Profit</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="chart.js"></script>
+</body>
+</html>
