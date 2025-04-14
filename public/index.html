@@ -6,7 +6,6 @@
   <title>Bitget Grid Bot</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -19,44 +18,107 @@
       <div class="form-group">
         <label>Symbol:</label>
         <select id="symbol">
-          <!-- Major Pairs -->
-          <option value="BTCUSDT">BTC/USDT</option>
-          <option value="ETHUSDT">ETH/USDT</option>
-          <option value="BNBUSDT">BNB/USDT</option>
-          <option value="XRPUSDT">XRP/USDT</option>
-          <option value="SOLUSDT">SOL/USDT</option>
-          <option value="ADAUSDT">ADA/USDT</option>
-          <option value="DOGEUSDT">DOGE/USDT</option>
-          <option value="DOTUSDT">DOT/USDT</option>
-          <option value="MATICUSDT">MATIC/USDT</option>
-          <option value="LTCUSDT">LTC/USDT</option>
-          <!-- Additional 20 coins -->
-          <option value="AVAXUSDT">AVAX/USDT</option>
-          <option value="LINKUSDT">LINK/USDT</option>
-          <option value="ATOMUSDT">ATOM/USDT</option>
-          <option value="UNIUSDT">UNI/USDT</option>
-          <option value="XLMUSDT">XLM/USDT</option>
-          <option value="ALGOUSDT">ALGO/USDT</option>
-          <option value="FILUSDT">FIL/USDT</option>
-          <option value="VETUSDT">VET/USDT</option>
-          <option value="THETAUSDT">THETA/USDT</option>
-          <option value="XTZUSDT">XTZ/USDT</option>
-          <option value="EOSUSDT">EOS/USDT</option>
-          <option value="AAVEUSDT">AAVE/USDT</option>
-          <option value="CAKEUSDT">CAKE/USDT</option>
-          <option value="AXSUSDT">AXS/USDT</option>
-          <option value="SANDUSDT">SAND/USDT</option>
-          <option value="MANAUSDT">MANA/USDT</option>
-          <option value="GALAUSDT">GALA/USDT</option>
-          <option value="APEUSDT">APE/USDT</option>
-          <option value="CHZUSDT">CHZ/USDT</option>
-          <option value="ENJUSDT">ENJ/USDT</option>
+          <!-- Options will be loaded from coins.json -->
+          <option value="loading" disabled>Loading pairs...</option>
         </select>
       </div>
       
-      <!-- Rest of your HTML remains the same -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Upper Price:</label>
+          <input type="number" id="upper-price" step="0.01" placeholder="Auto-detect">
+        </div>
+        <div class="form-group">
+          <label>Lower Price:</label>
+          <input type="number" id="lower-price" step="0.01" placeholder="Auto-detect">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Grid Levels:</label>
+          <input type="number" id="grid-levels" min="3" max="50" value="10">
+        </div>
+        <div class="form-group">
+          <label>Investment (USDT):</label>
+          <input type="number" id="investment" min="10" value="1000">
+        </div>
+      </div>
+    </div>
+
+    <div class="control-panel">
+      <button id="start-btn" class="btn primary">Start Bot</button>
+      <button id="stop-btn" class="btn danger" disabled>Stop Bot</button>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="price-chart"></canvas>
+      <div class="grid-lines" id="grid-lines"></div>
+    </div>
+
+    <div class="trade-history">
+      <h3>Trade History</h3>
+      <table id="trade-log">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
   </div>
+
+  <script>
+    // Load coins dynamically
+    fetch('coins.json')
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById('symbol');
+        select.innerHTML = ''; // Clear loading message
+        
+        // Group by category
+        const categories = {};
+        data.pairs.forEach(pair => {
+          if (!categories[pair.category]) {
+            categories[pair.category] = [];
+          }
+          categories[pair.category].push(pair);
+        });
+
+        // Add optgroups
+        for (const [category, pairs] of Object.entries(categories)) {
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = category.charAt(0).toUpperCase() + category.slice(1);
+          
+          pairs.forEach(pair => {
+            const option = document.createElement('option');
+            option.value = pair.symbol;
+            option.textContent = `${pair.name} (${pair.symbol})`;
+            optgroup.appendChild(option);
+          });
+          
+          select.appendChild(optgroup);
+        }
+        
+        // Set default value
+        select.value = 'BTCUSDT';
+      })
+      .catch(error => {
+        console.error('Error loading coins:', error);
+        document.getElementById('symbol').innerHTML = `
+          <option value="BTCUSDT">BTC/USDT</option>
+          <option value="ETHUSDT">ETH/USDT</option>
+          <option value="error" disabled>Failed to load pairs</option>
+        `;
+      });
+  </script>
+  
   <script src="app.js"></script>
+  <script src="chart.js"></script>
 </body>
-</html>
+  </html>
