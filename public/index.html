@@ -1,124 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bitget Grid Bot</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitget Grid Trading Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Bitget Grid Trading Bot</h1>
-      <div class="bot-status" id="bot-status">Offline</div>
-    </header>
-
-    <div class="config-panel">
-      <div class="form-group">
-        <label>Symbol:</label>
-        <select id="symbol">
-          <!-- Options will be loaded from coins.json -->
-          <option value="loading" disabled>Loading pairs...</option>
-        </select>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label>Upper Price:</label>
-          <input type="number" id="upper-price" step="0.01" placeholder="Auto-detect">
-        </div>
-        <div class="form-group">
-          <label>Lower Price:</label>
-          <input type="number" id="lower-price" step="0.01" placeholder="Auto-detect">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Grid Levels:</label>
-          <input type="number" id="grid-levels" min="3" max="50" value="10">
-        </div>
-        <div class="form-group">
-          <label>Investment (USDT):</label>
-          <input type="number" id="investment" min="10" value="1000">
-        </div>
-      </div>
-    </div>
-
-    <div class="control-panel">
-      <button id="start-btn" class="btn primary">Start Bot</button>
-      <button id="stop-btn" class="btn danger" disabled>Stop Bot</button>
-    </div>
-
-    <div class="chart-container">
-      <canvas id="price-chart"></canvas>
-      <div class="grid-lines" id="grid-lines"></div>
-    </div>
-
-    <div class="trade-history">
-      <h3>Trade History</h3>
-      <table id="trade-log">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Amount</th>
-            <th>Profit</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    // Load coins dynamically
-    fetch('coins.json')
-      .then(response => response.json())
-      .then(data => {
-        const select = document.getElementById('symbol');
-        select.innerHTML = ''; // Clear loading message
+    <div class="container">
+        <h1>Bitget Grid Trading Bot</h1>
         
-        // Group by category
-        const categories = {};
-        data.pairs.forEach(pair => {
-          if (!categories[pair.category]) {
-            categories[pair.category] = [];
-          }
-          categories[pair.category].push(pair);
-        });
-
-        // Add optgroups
-        for (const [category, pairs] of Object.entries(categories)) {
-          const optgroup = document.createElement('optgroup');
-          optgroup.label = category.charAt(0).toUpperCase() + category.slice(1);
-          
-          pairs.forEach(pair => {
-            const option = document.createElement('option');
-            option.value = pair.symbol;
-            option.textContent = `${pair.name} (${pair.symbol})`;
-            optgroup.appendChild(option);
-          });
-          
-          select.appendChild(optgroup);
-        }
+        <div class="control-panel">
+            <div class="form-group">
+                <label for="symbol">Select Coin:</label>
+                <select id="symbol"></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="buyPrice">Buy Price ($):</label>
+                <input type="number" id="buyPrice" value="2.00" step="0.01">
+            </div>
+            
+            <div class="form-group">
+                <label for="sellPrice">Sell Price ($):</label>
+                <input type="number" id="sellPrice" value="2.40" step="0.01">
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" value="10" step="0.1">
+            </div>
+            
+            <div class="button-group">
+                <button id="startBtn">Start Bot</button>
+                <button id="stopBtn" disabled>Stop Bot</button>
+            </div>
+        </div>
         
-        // Set default value
-        select.value = 'BTCUSDT';
-      })
-      .catch(error => {
-        console.error('Error loading coins:', error);
-        document.getElementById('symbol').innerHTML = `
-          <option value="BTCUSDT">BTC/USDT</option>
-          <option value="ETHUSDT">ETH/USDT</option>
-          <option value="error" disabled>Failed to load pairs</option>
-        `;
-      });
-  </script>
-  
-  <script src="app.js"></script>
-  <script src="chart.js"></script>
+        <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+        </div>
+        
+        <div class="logs">
+            <h3>Activity Log</h3>
+            <div id="logOutput"></div>
+        </div>
+    </div>
 </body>
-  </html>
+</html>
