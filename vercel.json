@@ -15,12 +15,5 @@
       "src": "/(.*)",
       "dest": "public/$1"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@your-mongodb-uri",
-    "BITGET_API_KEY": "@your-bitget-api-key",
-    "BITGET_SECRET": "@your-bitget-secret",
-    "BITGET_PASSPHRASE": "@your-bitget-passphrase",
-    "APP_API_KEY": "@your-app-api-key"
-  }
+  ]
 }
