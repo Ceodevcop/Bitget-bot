@@ -1,0 +1,154 @@
+{
+  "pairs": [
+    {
+      "symbol": "BTCUSDT",
+      "name": "Bitcoin",
+      "category": "major"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "name": "Ethereum",
+      "category": "major"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "name": "Binance Coin",
+      "category": "major"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "name": "Solana",
+      "category": "major"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "name": "Ripple",
+      "category": "major"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "name": "Cardano",
+      "category": "major"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "name": "Dogecoin",
+      "category": "meme"
+    },
+    {
+      "symbol": "DOTUSDT",
+      "name": "Polkadot",
+      "category": "defi"
+    },
+    {
+      "symbol": "MATICUSDT",
+      "name": "Polygon",
+      "category": "layer2"
+    },
+    {
+      "symbol": "SHIBUSDT",
+      "name": "Shiba Inu",
+      "category": "meme"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "name": "Avalanche",
+      "category": "defi"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "name": "Chainlink",
+      "category": "oracle"
+    },
+    {
+      "symbol": "ATOMUSDT",
+      "name": "Cosmos",
+      "category": "interop"
+    },
+    {
+      "symbol": "UNIUSDT",
+      "name": "Uniswap",
+      "category": "defi"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "name": "Litecoin",
+      "category": "major"
+    },
+    {
+      "symbol": "XMRUSDT",
+      "name": "Monero",
+      "category": "privacy"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "name": "Ethereum Classic",
+      "category": "major"
+    },
+    {
+      "symbol": "FILUSDT",
+      "name": "Filecoin",
+      "category": "storage"
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "name": "Aave",
+      "category": "defi"
+    },
+    {
+      "symbol": "APEUSDT",
+      "name": "ApeCoin",
+      "category": "nft"
+    },
+    {
+      "symbol": "AXSUSDT",
+      "name": "Axie Infinity",
+      "category": "gaming"
+    },
+    {
+      "symbol": "SANDUSDT",
+      "name": "The Sandbox",
+      "category": "metaverse"
+    },
+    {
+      "symbol": "MANAUSDT",
+      "name": "Decentraland",
+      "category": "metaverse"
+    },
+    {
+      "symbol": "GALAUSDT",
+      "name": "Gala",
+      "category": "gaming"
+    },
+    {
+      "symbol": "CRVUSDT",
+      "name": "Curve DAO",
+      "category": "defi"
+    },
+    {
+      "symbol": "COMPUSDT",
+      "name": "Compound",
+      "category": "defi"
+    },
+    {
+      "symbol": "MKRUSDT",
+      "name": "Maker",
+      "category": "defi"
+    },
+    {
+      "symbol": "SNXUSDT",
+      "name": "Synthetix",
+      "category": "defi"
+    },
+    {
+      "symbol": "GRTUSDT",
+      "name": "The Graph",
+      "category": "indexing"
+    },
+    {
+      "symbol": "1INCHUSDT",
+      "name": "1inch",
+      "category": "defi"
+    }
+  ]
+    }
