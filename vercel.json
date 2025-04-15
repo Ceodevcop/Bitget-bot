@@ -2,22 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/trade.js",
+      "src": "api/gridBot.js",
       "use": "@vercel/node"
     },
     {
-      "src": "public/**",
-      "use": "@vercel/static"
+      "src": "api/history.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/trade",
-      "dest": "/api/trade"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "public/$1"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     }
   ]
 }
