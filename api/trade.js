@@ -1,46 +1,30 @@
-const axios = require('axios');
+import fetch from "node-fetch";
 
-module.exports = async (req, res) => {
-  // Set CORS headers for Vercel
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Content-Type', 'application/json');
+export default async (req, res) => {
+  const { symbol, amount } = JSON.parse(req.body);
+  const API_KEY = process.env.BITGET_API_KEY;
 
-  // Handle OPTIONS request for CORS preflight
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  // Get the current market price from Bitget
+  const marketRes = await fetch(`https://api.bitget.com/api/spot/v1/market/ticker?symbol=${symbol}`);
+  const market = await marketRes.json();
 
-  try {
-    if (req.method === 'GET' && req.query.action === 'getSymbols') {
-      const { data } = await axios.get('https://api.bitget.com/api/spot/v1/public/products');
-      
-      // Validate response structure
-      if (!data || !data.data) {
-        throw new Error('Invalid API response structure');
-      }
+  const currentPrice = parseFloat(market.data.last);
+  const buyPrice = currentPrice;
+  const sellPrice = currentPrice * 1.01; // Target 1% profit
 
-      const symbols = data.data
-        .filter(product => product.quoteCoin === 'USDT')
-        .map(product => product.symbol);
+  // Simulate profit calculation
+  const profit = (sellPrice - buyPrice) * (amount / buyPrice);
 
-      return res.status(200).json({
-        success: true,
-        data: symbols
-      });
-    }
+  // Log the trade to Supabase
+  await fetch(`${process.env.SUPABASE_API_URL}/rest/v1/history`, {
+    method: "POST",
+    headers: {
+      apikey: process.env.SUPABASE_API_KEY,
+      "Content-Type": "application/json",
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify({ symbol, buyPrice, sellPrice, profit }),
+  });
 
-    return res.status(400).json({
-      success: false,
-      message: 'Invalid request method or action'
-    });
-
-  } catch (error) {
-    console.error('Vercel Serverless Error:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Internal server error',
-      error: error.message
-    });
-  }
+  res.status(200).json({ success: true, profit });
 };
