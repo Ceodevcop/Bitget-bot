@@ -1,7 +1,13 @@
 {
-  "name": "bitget-grid-bot",
+  "name": "grid-trading-bot",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "start": "vercel start"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
