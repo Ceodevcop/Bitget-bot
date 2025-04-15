@@ -1,20 +1,35 @@
 body {
-  font-family: Arial;
-  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
-h1 {
-  text-align: center;
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.control-panel {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#chartContainer {
-  width: 100%;
+#chart-container {
   height: 400px;
-  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#logs {
+  margin-top: 30px;
+}
+
+#log-list {
+  list-style-type: none;
+  padding: 0;
 }
