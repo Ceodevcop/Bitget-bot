@@ -1,0 +1,15 @@
+# Node.js modules
+node_modules/
+
+# Environment file (Do not commit sensitive keys)
+.env
+
+# Vercel deployment files
+.vercel/
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
