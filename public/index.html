@@ -1,52 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitget Grid Trading Bot</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js" defer></script>
+  <title>Grid Bot</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Bitget Grid Trading Bot</h1>
-        
-        <div class="control-panel">
-            <div class="form-group">
-                <label for="symbol">Select Coin:</label>
-                <select id="symbol"></select>
-            </div>
-            
-            <div class="form-group">
-                <label for="buyPrice">Buy Price ($):</label>
-                <input type="number" id="buyPrice" value="2.00" step="0.01">
-            </div>
-            
-            <div class="form-group">
-                <label for="sellPrice">Sell Price ($):</label>
-                <input type="number" id="sellPrice" value="2.40" step="0.01">
-            </div>
-            
-            <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" value="10" step="0.1">
-            </div>
-            
-            <div class="button-group">
-                <button id="startBtn">Start Bot</button>
-                <button id="stopBtn" disabled>Stop Bot</button>
-            </div>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="priceChart"></canvas>
-        </div>
-        
-        <div class="logs">
-            <h3>Activity Log</h3>
-            <div id="logOutput"></div>
-        </div>
-    </div>
+  <h1>Bitget Grid Trading Bot</h1>
+
+  <select id="coinSelector"></select>
+
+  <div id="chartContainer">
+    <!-- TradingView widget -->
+    <div id="tradingview_widget"></div>
+  </div>
+
+  <div class="control-panel">
+    <label>Buy Amount ($):</label>
+    <input id="buyAmount" type="number" value="2" />
+
+    <button onclick="startBot()">Start Bot</button>
+    <button onclick="stopBot()">Stop Bot</button>
+
+    <div id="status">Status: Stopped</div>
+    <div id="profit">Profit: $0</div>
+  </div>
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
